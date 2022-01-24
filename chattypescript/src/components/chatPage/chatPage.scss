@@ -1,0 +1,48 @@
+
+
+.message {
+    padding: 10px;
+    margin: 5px;
+    max-width: 50%;
+    border-radius: 10px;
+    background-color: rgb(182, 230, 176);
+    p {
+        word-wrap: break-word;
+    }
+    span {
+        background-color:azure;
+        display: block;
+        padding: 5px;
+        height: 20px;
+        border-radius: 20px;
+        text-align: center;
+    }
+}
+
+.myMessage {
+    align-self: flex-end;
+    background-color: rgb(240, 231, 136);
+}
+.messageBox { 
+    display: flex;
+    padding: 20px;
+    border-radius: 10px;
+    background-color:rgb(243, 243, 243)
+}
+.usersBox { 
+    align-content: flex-end;
+    text-align: center;
+    padding: 20px;
+    margin-left: 10px;
+    width: 20%;
+    border-radius: 10px;
+    background-color:rgb(243, 243, 243);
+    .online {
+        border-radius: 5px;
+        padding: 5px;
+        margin-bottom: 5px;
+        background-color:rgb(247, 233, 233);
+        font-weight: 700;
+
+    }
+}
