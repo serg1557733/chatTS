@@ -1,5 +1,3 @@
-
-
 type ValidationProps = {
     userName: string
 }

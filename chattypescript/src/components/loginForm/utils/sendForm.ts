@@ -4,7 +4,7 @@ export interface IUser {
     password: string
 }
 
-export const sendForm = async (POST_URL: string, userData: IUser) => {
+export const sendForm = async (POST_URL: string, userData: IUser) => { //add return
     try {
         const response = await fetch(POST_URL, {
             method: 'POST',
