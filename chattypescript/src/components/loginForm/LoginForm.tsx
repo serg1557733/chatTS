@@ -3,29 +3,25 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import { useState, useEffect, FC, FormEvent } from 'react';
+import { useState, useEffect, FC, FormEvent, ChangeEvent, ReactElement } from 'react';
 import { sendForm } from './utils/sendForm';
 import {isValidPayload} from './utils/validations/isValidPayload';
 import {isValidUserName} from './utils/validations/isValidUserName';
 import { Modal } from '../modal/Modal';
 
 
-export interface LoginFormProps { 
+interface LoginFormProps { 
     onSubmit: (token: string) => void 
 };
 
-interface IUser {
-    userName: string
-    password: string
-  }
 
-export const LoginForm: FC<LoginFormProps> = ({onSubmit}) => {
+export const LoginForm = ({onSubmit}: LoginFormProps) => {
 
-    const [userData, setUserdata] = useState<IUser>({userName:'', password: ''});
+    const [userData, setUserdata] = useState({userName:'', password: ''});
     const [textModal, setTextModal] = useState('')
     const [display, setDisplay] = useState('none');
 
-    const POST_URL: string =  process.env.REACT_APP_POST_URL || 'http://localhost:5000/login';
+    const POST_URL =  process.env.REACT_APP_POST_URL || 'http://localhost:5000/login';
 
     const handleSubmit = async (e:FormEvent) => {
         e.preventDefault();

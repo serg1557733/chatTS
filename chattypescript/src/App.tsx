@@ -1,10 +1,10 @@
 import './App.css';
 import { LoginForm } from './components/loginForm/LoginForm';
 import { ChatPage } from './components/chatPage/ChatPage';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC} from 'react';
 
 
-function App() {
+function App (){
 
     const [token, setToken] = useState(localStorage.getItem('token'))
 
