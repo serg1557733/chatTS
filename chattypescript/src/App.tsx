@@ -1,8 +1,7 @@
 import './App.css';
 import { LoginForm } from './components/loginForm/LoginForm';
 import { ChatPage } from './components/chatPage/ChatPage';
-import { useEffect, useState, FC} from 'react';
-
+import { useEffect, useState} from 'react';
 
 function App (){
 

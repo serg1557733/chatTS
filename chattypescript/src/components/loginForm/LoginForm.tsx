@@ -1,19 +1,19 @@
-
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import { useState, useEffect, FC, FormEvent, ChangeEvent, ReactElement } from 'react';
-import { sendForm } from './utils/sendForm';
-import {isValidPayload} from './utils/validations/isValidPayload';
-import {isValidUserName} from './utils/validations/isValidUserName';
+import React, { useState, useEffect, FormEvent, ReactEventHandler } from 'react';
 import { Modal } from '../modal/Modal';
+import {handleSubmit} from './utils/handleSubmit'
 
+interface IUser {
+    userName: string
+    password: string
+}
 
 interface LoginFormProps { 
     onSubmit: (token: string) => void 
 };
-
 
 export const LoginForm = ({onSubmit}: LoginFormProps) => {
 
@@ -21,26 +21,17 @@ export const LoginForm = ({onSubmit}: LoginFormProps) => {
     const [textModal, setTextModal] = useState('')
     const [display, setDisplay] = useState('none');
 
+
     const POST_URL =  process.env.REACT_APP_POST_URL || 'http://localhost:5000/login';
 
-    const handleSubmit = async (e:FormEvent) => {
-        e.preventDefault();
-
-        if(isValidPayload({...userData}) && isValidUserName({...userData})){
-            const data = await sendForm(POST_URL, userData);
-            const token = data.token;
-
-            if(token){
-                onSubmit(token);     
-            }
-
-            setTextModal(data.message)
-            setDisplay('block')
-            setUserdata({userName:'', password: ''});
-        } else {
-            setTextModal('too short or using special symbols')
-            setDisplay('block')
-        }   
+    const changeTextModal = (value: string) => {
+        setTextModal(value)
+    }
+    const changeDisplay= (value: string) => {
+        setDisplay(value)
+    }
+    const changeUserData= ({}:IUser) => {
+        setUserdata({} as IUser)
     }
 
     useEffect(()=>{
@@ -54,7 +45,7 @@ export const LoginForm = ({onSubmit}: LoginFormProps) => {
         <Container maxWidth="xs">
             <Box
                 component="form" 
-                onSubmit={(e:FormEvent) => handleSubmit(e)}
+                onSubmit={(e:FormEvent<HTMLFormElement>) => handleSubmit({changeTextModal, changeDisplay, changeUserData,onSubmit, e, POST_URL, userData})}
                 sx={{
                     marginTop: 40,
                     display: 'flex',
@@ -72,9 +63,9 @@ export const LoginForm = ({onSubmit}: LoginFormProps) => {
                         autoFocus
                         value={userData.userName}
                         onChange={(e) => {
-                            setUserdata({...userData, userName: e.target.value})
-                            setDisplay('none')
-                        }}
+                        setUserdata({...userData, userName: e.target.value})
+                        setDisplay('none')
+                    }}
                 />
                 <TextField
                         margin="normal"
