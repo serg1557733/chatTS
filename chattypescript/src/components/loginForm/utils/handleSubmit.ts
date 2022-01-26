@@ -19,7 +19,7 @@ interface ResponseData {
 }
 
 
-export const handleSubmit = async ({changeTextModal, changeDisplay, changeUserData,onSubmit, e, POST_URL, userData}: HandleSubmitArgs) => {
+export const handleSubmit = async ({changeTextModal, changeDisplay, changeUserData, onSubmit, e, POST_URL, userData}: HandleSubmitArgs) => {
     e.preventDefault(); 
     if(isValidPayload({...userData}) && isValidUserName({...userData})){
         const data: ResponseData | null = await sendForm(POST_URL, userData);
@@ -29,7 +29,8 @@ export const handleSubmit = async ({changeTextModal, changeDisplay, changeUserDa
         const token = data.token;
         const message = data.message;
         if(token){
-            onSubmit(token);     
+            onSubmit(token); 
+            localStorage.setItem('token', token);  
         }
         changeTextModal(message)
         changeDisplay('block')

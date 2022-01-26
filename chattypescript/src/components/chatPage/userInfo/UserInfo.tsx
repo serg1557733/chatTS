@@ -1,10 +1,22 @@
 import Avatar from '@mui/material/Avatar';
 
-interface IUserInfo {
+
+
+export interface IUser {
+    _id: number | null | undefined;
+    userName: string
+    password: string 
     color: string
-    user: string
+    id: string
+    isAdmin: boolean
+    isMutted:boolean
+    isBanned:boolean
 }
 
+interface IUserInfo {
+    user?: IUser
+    color?: string
+}
 
 export const UserInfo = (data: IUserInfo): JSX.Element => {
     return (

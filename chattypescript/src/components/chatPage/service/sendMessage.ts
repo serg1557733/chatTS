@@ -1,14 +1,12 @@
+import {Socket} from 'socket.io-client';
 
 interface IMessage {
     message?: string;
   }
 
-interface ISocket {
-    emit:(event: string, data: any) => void ;
-}
 
-export const sendMessage = (data:IMessage, socket:ISocket): void => {
+export const sendMessage = (data:IMessage, socket:Socket | null): void => {
     if (data.message && data.message.length < 200) {
-        socket.emit('message', data); 
+        socket!.emit('message', data); 
     } 
 };

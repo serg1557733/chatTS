@@ -1,17 +1,23 @@
 import './App.css';
 import { LoginForm } from './components/loginForm/LoginForm';
 import { ChatPage } from './components/chatPage/ChatPage';
-import { useEffect, useState} from 'react';
+import { useEffect, useState, ReactElement} from 'react';
 
-function App (){
+const App = ():ReactElement => {
 
     const [token, setToken] = useState(localStorage.getItem('token'))
+
 
     useEffect(() => {
         if(token) {
             localStorage.setItem('token', token);  
         } 
+        //clear after unmount
     }, [token])
+
+    const handleToken = (token: string) => {
+        setToken(token)
+    }
 
     if (token) {
         return <ChatPage 
@@ -19,10 +25,11 @@ function App (){
             onExit={() =>{
                         localStorage.removeItem('token')
                         setToken('')
-                    }}/> 
+                    }}
+                    /> 
         }
 
-    return <LoginForm onSubmit={setToken}/>; // delete setTokek after unmounted
+    return <LoginForm onSubmit = {handleToken}/>;
 }
 
 export default App;

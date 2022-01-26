@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import React, { useState, useEffect, FormEvent, ReactEventHandler } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { Modal } from '../modal/Modal';
 import {handleSubmit} from './utils/handleSubmit'
 
@@ -31,7 +31,7 @@ export const LoginForm = ({onSubmit}: LoginFormProps) => {
         setDisplay(value)
     }
     const changeUserData= ({}:IUser) => {
-        setUserdata({} as IUser)
+        setUserdata({userName:'', password: ''})
     }
 
     useEffect(()=>{
@@ -45,7 +45,8 @@ export const LoginForm = ({onSubmit}: LoginFormProps) => {
         <Container maxWidth="xs">
             <Box
                 component="form" 
-                onSubmit={(e:FormEvent<HTMLFormElement>) => handleSubmit({changeTextModal, changeDisplay, changeUserData,onSubmit, e, POST_URL, userData})}
+                onSubmit={(e:FormEvent<HTMLFormElement>) => 
+                    handleSubmit({changeTextModal, changeDisplay, changeUserData, onSubmit, e, POST_URL, userData})}
                 sx={{
                     marginTop: 40,
                     display: 'flex',

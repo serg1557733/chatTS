@@ -8,5 +8,6 @@ export interface ISocket {
 }
 
 export const muteUser = (user: IUser, prevStatus: boolean, socket: ISocket): void => {
+
     socket.emit('muteUser', {user, prevStatus} );
 }

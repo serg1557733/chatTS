@@ -2,7 +2,7 @@ interface Iitem {
     createDate:string
 }
 
-export const dateFormat = (item:Iitem): {} => {
+export const dateFormat = (item:Iitem): {year: string, time: string} => {
 
     const res = item.createDate.split('T');
     const date = {

@@ -2,6 +2,8 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
 import { useState, FormEvent} from 'react';
 import Box from '@mui/material/Box';
+import {Socket} from 'socket.io-client';
+import { handleSubmit } from '../../loginForm/utils/handleSubmit';
 
 
 interface ISocketData {
@@ -17,29 +19,32 @@ interface IUser {
     isBanned?:boolean
 }
 
-interface ISocket {
-    emit:(event: string, data: any) => void ;
-}
 
 interface MessageFormArgs {
     data: IUser;
-    sendMessage:(data:ISocketData, socket?:ISocket) => void
+    sendMessage:(data:ISocketData, socket?:Socket | null) => void
+    children?: any
 }
 
-export const MessageForm = ({sendMessage, data}: MessageFormArgs) => {
+
+
+
+export const MessageForm = ({sendMessage, data}: MessageFormArgs):JSX.Element => {
 
     const [message, setMessage] = useState({message: ''});
+
+    console.log(data.isMutted)
+    const handleSubm = (e: FormEvent, message: ISocketData): void => {
+        e.preventDefault()
+        sendMessage(message);
+        setMessage({message: ''});
+    
+    }
 
     return (
         <Box 
             component="form" 
-            onSubmit = {(e:FormEvent<HTMLFormElement>) =>
-                {
-                    e.preventDefault()
-                    sendMessage(message);
-                    setMessage({message: ''});
-                }}
-                
+            onSubmit = {(e:FormEvent) => handleSubm(e, message)}
                 sx={{
                     display: 'flex',
                     margin: '20px 5px'
