@@ -16,16 +16,6 @@ interface ChatPageArgs {
     onExit:() => void
     token: string
 }
-
-// interface ServerToClientEvents {
-//     noArg: () => void;
-//     basicEmit: (a: number, b: string, c: Buffer) => void;
-//     withAck: (d: string, callback: (e: number) => void) => void;
-//   }
-  
-//   interface ClientToServerEvents {
-//     hello: () => void;
-//   }
   
 interface IMessages {
     message?: string;
@@ -45,9 +35,7 @@ export const ChatPage = ({onExit, token}: ChatPageArgs) => {
     const [allUsers, setAllUsers] = useState<IUser[]>([])
     
     const randomColor = require('randomcolor'); 
-    //const endMessages = useRef(null);
     const endMessages = useRef<HTMLDivElement | null>(null);
-    //const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io();
 
     console.log('user chat', user.isMutted)
     useEffect(() => {
@@ -82,6 +70,7 @@ export const ChatPage = ({onExit, token}: ChatPageArgs) => {
                 console.log(e)
             });  
             socket.on('allDbUsers', (data) => {
+                console.log(data)
                 setAllUsers(data);
                 }).on('error', (e) => {
                 console.log(e)

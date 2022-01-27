@@ -1,4 +1,3 @@
-import { Socket } from 'socket.io-client';
 import { Request, Response, NextFunction } from 'express';
 import { Server } from 'http';
 import {Server as SocketServer } from 'socket.io';
@@ -229,8 +228,7 @@ io.on("connection", async (socket) => {
                 const ban = await User.updateOne({userName : user.userName}, {$set: {isBanned:!prevStatus}});
                 const usersDb: IUser = await User.find({})
                 socket.emit('allDbUsers', usersDb) 
-                const exist = sockets.find( current => current.data.user.userName == user)
-                
+                const exist = sockets.find(current => current.data.user.userName === user.userName)
                 if(exist){
                     exist.disconnect();  
                 }
